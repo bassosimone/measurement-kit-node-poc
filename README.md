@@ -15,3 +15,7 @@ To rebuild:
 To test:
 
 - `node ./addon.js`
+
+Apart from the code issues that I needed to deal with, I also needed to make
+sure that the compiler was using RTTI and exceptions and C++14. See the
+`binding.gyp` to see the weird way in which this is done.
