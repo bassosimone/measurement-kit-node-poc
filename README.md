@@ -37,13 +37,13 @@ the way, this is something we have also been doing on Android since when the
 first public version of the ooniprobe app was released).
 
 Swithing to a model where we use a single thread entails writing more code
-and perhaps the starting point will be sublassing and/or rewriting the
+and perhaps the starting point will be subclassing and/or rewriting the
 `AsyncWorker` family of templates. The key implementation points to keep
 in mind in such case would be the following:
 
 1. [According to Nan code, we should use libuv default event loop](
      https://github.com/nodejs/nan/blob/7aa06dbc4e5f402cf8b99c57c235bcd195f5abd3/nan.h#L1617
-   )
+   ).
 
 2. We don't know whether there are other events keeping alive the event
    loop, so we need to guarantee it will not exit. [With Nan API what
@@ -83,9 +83,11 @@ int main() {
 ## Other details to keep in mind
 
 I also needed to make sure that the compiler was using RTTI, exceptions and
-C++14. See the `binding.gyp` to see the weird way in which this is done.
+C++14. This is not the default for node extensions. See the `binding.gyp` to
+see the weird way in which this is done.
 
-Note that both v8 and node are compiled with no exceptions and no RTTI. This
-has the implication that we MUST NOT let exceptions traverse the boundary
-of MK code, because other C++ code does not contain RAII cleanup code to deal
-with stack unwinding, so many bad things could happen.
+Note that no exceptions and no RTTI are the default because both v8 and node are
+compiled with no exceptions and no RTTI. This has the implication that we MUST
+NOT let exceptions traverse the boundary of MK code, because other C++ code does
+not contain RAII cleanup code to deal with stack unwinding, so many bad things
+could happen (I think mainly that objects won't be destroyed properly).
