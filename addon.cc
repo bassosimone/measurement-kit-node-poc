@@ -1,7 +1,7 @@
 // Based off <https://github.com/nodejs/nan> examples (MIT license)
 
-#include <measurement_kit/common/logger.hpp>
-#include <measurement_kit/nettests/nettests.hpp>
+#include <measurement_kit/common.hpp>
+#include <measurement_kit/nettests.hpp>
 #include <nan.h>
 
 namespace mk {
