@@ -1,0 +1,11 @@
+{
+  "name": "measurement-kit-node-poc",
+  "version": "0.0.0",
+  "description": "Measurement Kit PoC for Node",
+  "main": "addon.js",
+  "private": true,
+  "gypfile": true,
+  "dependencies": {
+    "nan": "^2.7.0"
+  }
+}
