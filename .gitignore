@@ -1,2 +1,3 @@
+*.njson
 /build/
 /node_modules/
