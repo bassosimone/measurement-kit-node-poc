@@ -1,9 +1,11 @@
 // Based off <https://github.com/nodejs/nan> examples (MIT license).
 // Runs the HIRL MK test as a proof of concept.
 
+#include <list>
 #include <measurement_kit/common.hpp>
 #include <measurement_kit/ext.hpp>      // for json, will go away in v0.8.x
 #include <measurement_kit/nettests.hpp>
+#include <mutex>
 #include <nan.h>
 
 namespace mk {
