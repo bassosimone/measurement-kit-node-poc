@@ -39,22 +39,18 @@ class NettestWorker : public Nan::AsyncWorker {
   // blocking thread that takes care of running the test. This is
   // maybe a little inefficient, but it fits well with the C++ model
   // that is enforced by Nan (i.e. that's the easiest way).
-  void Execute() {
+  //
+  // Note: by default, when this function terminates, the final
+  // callback is called with undefined (on success) and with the
+  // registered error message (on failure).
+  void Execute() override {
     try {
       test.run();
+    } catch (const std::exception &exc) {
+      SetErrorMessage(exc.what());
     } catch (...) {
-      // NOTHING
+      SetErrorMessage("unhandled exception");
     }
-  }
-
-  // Calls the final callback when the test is complete.
-  //
-  // Note: this function will be run inside the main event loop so it is
-  // safe to use V8 again.
-  void HandleOKCallback() {
-    Nan::HandleScope scope;
-    v8::Local<v8::Value> argv[] = { Nan::Null() };
-    callback->Call(1, argv);
   }
 
  private:
