@@ -33,8 +33,14 @@ void nettest_start_with_context(Var<NettestContext> ctx) {
     }
     Nettest nettest;
     nettest.set_verbosity(MK_LOG_DEBUG); // XXX
-    nettest.on_destroy(
-            [async]() { uv_close((uv_handle_t *)async, mkuv_async_destroy); });
+    nettest.on_destroy([ctx, async]() {
+        ctx->actions.push_back([async]() {
+            uv_close((uv_handle_t *)async, mkuv_async_destroy);
+        });
+        if (uv_async_send(async) != 0) {
+            throw std::runtime_error("uv_async_send");
+        }
+    });
     if (ctx->cb_progress) {
         nettest.on_progress([async, ctx](double percentage, const char *msg) {
             std::unique_lock<std::recursive_mutex> _{ctx->mutex};
