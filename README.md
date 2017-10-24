@@ -73,12 +73,13 @@ int main() {
 }
 ```
 
-3. [Nan is indeed using uv_async to signal the event loop that it must
-    call specific callacks for dealing with progress](
+3. [Nan is indeed using uv_async to signal the event loop that it must call specific callacks for dealing with progress](
        https://github.com/nodejs/nan/blob/7aa06dbc4e5f402cf8b99c57c235bcd195f5abd3/nan.h#L1616
    ). Yet, the model provided by Nan is a bit unsatisfactory in that
    we cannot wake up the event loop for different kind of events,
    thus we may want to roll out our abstraction.
+
+Or, we can make MK's `run()` single-threaded again, to use just one thread.
 
 ## Other details to keep in mind
 
