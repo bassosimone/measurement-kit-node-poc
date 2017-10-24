@@ -1,4 +1,4 @@
-require("./build/Release/addon")
+require("./build/Release/measurement-kit")
   .run_http_invalid_request_line(
     (progress) => {
       console.log("Progress", progress);

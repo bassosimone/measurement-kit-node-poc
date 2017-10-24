@@ -164,4 +164,4 @@ NAN_MODULE_INIT(Initialize) {
 }
 
 // The `NODE_MODULE` macro tell node that this is a module.
-NODE_MODULE(addon, Initialize)
+NODE_MODULE(measurement_kit, Initialize)

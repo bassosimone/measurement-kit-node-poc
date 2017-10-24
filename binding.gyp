@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "addon",
+      "target_name": "measurement-kit",
       "sources": [
         "addon.cc"
       ],
